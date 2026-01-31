@@ -37,7 +37,7 @@ def ingest_raw_trending_games_table(url: str) -> BeautifulSoup | None:
         for index, table_data_tag in enumerate(list_of_all_table_data_tags):
             index += 1
 
-            if index != 3:
+            if index != 3: # Index no. 3 consist of the graph data, we don't need it that's why we exclude it
                 cell_data = table_data_tag.get_text()
                 cell_data = str(cell_data)
                 list_of_all_cell_datas.append(cell_data)
