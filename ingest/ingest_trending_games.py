@@ -1,7 +1,6 @@
 """
 Ingest top 5 trending games from the steam from the url 'https://steamcharts.com'
 """
-from requests.sessions import TooManyRedirects
 import requests
 from bs4 import BeautifulSoup, Tag, ResultSet
 
