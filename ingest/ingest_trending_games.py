@@ -1,13 +1,9 @@
-"""
-Ingest top 5 trending games from the steam from the url 'https://steamcharts.com'
-"""
-from ssl import CHANNEL_BINDING_TYPES
 import requests
 from bs4 import BeautifulSoup, Tag, ResultSet
 
 def ingest_raw_trending_games_table(url: str) -> BeautifulSoup | None:
     """
-    Ingest function to ingest the top 5 trending games from the Steam Charts.
+    Ingest the raw data of top 5 trending games from Steam Charts.
     """
     headers = {
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36 Edg/144.0.0.0"
@@ -26,6 +22,10 @@ def ingest_raw_trending_games_table(url: str) -> BeautifulSoup | None:
     }
 
     trending_games_tag: Tag = soup.find('div', attrs={"class": "content"})
+
+    if trending_games_tag is None:
+        return result
+
     tbody_tag: Tag = trending_games_tag.find('tbody')
     list_of_all_table_row_tags: ResultSet[Tag] = tbody_tag.find_all('tr')
 
