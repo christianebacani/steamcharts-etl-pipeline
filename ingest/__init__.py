@@ -1,0 +1,1 @@
+from . import ingest_trending_games
