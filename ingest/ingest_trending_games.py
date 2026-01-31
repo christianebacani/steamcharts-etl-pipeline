@@ -14,9 +14,28 @@ def ingest_raw_trending_games_data(url: str) -> BeautifulSoup | None:
         return None
 
     soup: BeautifulSoup = BeautifulSoup(response.text, 'html.parser')
-    trending_games_tag: Tag | None = soup.find('div', attrs={"class": "content"})
 
-    if trending_games_tag is None:
-        return {}
+    result = {
+        "name": [],
+        "24-hour_change": [],
+        "current_players": []
+    }
 
-    tbody_tag: Tag | None = trending_games_tag.find('tbody')
+    trending_games_tag: Tag= soup.find('div', attrs={"class": "content"})
+    tbody_tag: Tag = trending_games_tag.find('tbody')
+    list_of_all_table_row_tags: ResultSet[Tag] = tbody_tag.find_all('tr')
+
+    for table_row_tag in list_of_all_table_row_tags:
+        list_of_all_table_data_tags: ResultSet[Tag] = table_row_tag.find_all('td')
+
+        list_of_cell_datas = []
+
+        for index, table_data_tag in enumerate(list_of_all_table_data_tags):
+            index += 1
+
+            if index != 3:
+                cell_data = table_data_tag.get_text()
+                cell_data = str(cell_data)
+                list_of_cell_datas.append(cell_data)
+
+        print(list_of_cell_datas)
