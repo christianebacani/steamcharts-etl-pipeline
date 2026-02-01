@@ -5,3 +5,5 @@ EXTRACT,Extract and parse BeautifulSoup object from the Steam Charts website.,20
 EXTRACT,Extract top 5 trending games from Steam Charts website.,2026-02-01 13:28:57
 EXTRACT,Extract top 5 trending games from Steam Charts website.,2026-02-01 13:32:45
 EXTRACT,Extract top 5 trending games from Steam Charts website.,2026-02-01 13:35:07
+EXTRACT,Extract top 5 trending games from Steam Charts website.,2026-02-01 14:00:30
+EXTRACT,Extract number 1 one trending game from Steam Charts website.,2026-02-01 14:00:33
