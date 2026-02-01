@@ -1,7 +1,6 @@
 """
 Extract trending games raw data from Steam Charts.
 """
-from numpy.lib.recfunctions import _append_fields_dispatcher
 import requests
 from bs4 import BeautifulSoup, Tag, ResultSet
 
@@ -97,7 +96,7 @@ def extract_player_concurrency_data(soup: BeautifulSoup | None) -> dict[str, dic
 
         if cell_number == 1:
             header = div_tag_with_app_stat_class.get_text()
-            abbr_tag : Tag = div_tag_with_app_stat_class.find("abbr")
+            abbr_tag: Tag = div_tag_with_app_stat_class.find("abbr")
             header = header + abbr_tag.get_text()
             header = str(header)
 
