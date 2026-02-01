@@ -3,6 +3,7 @@ ETL Pipeline executor by running and orchestrating different pipeline jobs.
 """
 from etl.extract.extract_trending_games import extract_and_parse_soup
 from etl.extract.extract_trending_games import extract_trending_games_table
+from etl.extract.extract_trending_games import extract_player_concurrency_data
 from logs.etl_pipeline_logs import etl_pipeline_logs
 
 base_url = "https://steamcharts.com/"
@@ -14,4 +15,7 @@ etl_pipeline_logs("EXTRACT", "Extract top 5 trending games from Steam Charts web
 number_one_trending_game_path = trending_games["app_id"][0]
 number_one_trending_game_url = base_url + number_one_trending_game_path
 number_one_trending_game_soup = extract_and_parse_soup(number_one_trending_game_url)
+
+extract_player_concurrency_data(number_one_trending_game_soup)
+
 etl_pipeline_logs("EXTRACT", "Extract number 1 one trending game from Steam Charts website.")
