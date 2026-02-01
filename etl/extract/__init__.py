@@ -1,0 +1,1 @@
+from . import extract_trending_games
