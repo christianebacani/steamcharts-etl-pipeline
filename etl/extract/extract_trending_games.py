@@ -87,6 +87,7 @@ def extract_player_concurrency_data(soup: BeautifulSoup | None) -> dict[str, dic
     app_title_tag: Tag = div_tag_with_content_wrapper_id.find("h1", attrs={"id": "app-title"})
     app_title = app_title_tag.get_text()
     app_title = str(app_title)
+    result["app_title"] = app_title
 
     div_tag_with_app_heading_id: Tag = div_tag_with_content_wrapper_id.find("div", attrs={"id": "app-heading"})
     list_of_all_div_tag_with_app_stat_classes: ResultSet[Tag] = div_tag_with_app_heading_id.find_all("div", attrs={"class": "app-stat"})
@@ -103,6 +104,8 @@ def extract_player_concurrency_data(soup: BeautifulSoup | None) -> dict[str, dic
             current_concurrent_players = div_tag_with_app_stat_class.find("span", attrs={"class": "num"}).get_text()
             current_concurrent_players = int(current_concurrent_players)
 
+            result["current_concurrent_players"][header] = current_concurrent_players
+
         else:
             br_tag: Tag = div_tag_with_app_stat_class.find("br")
             header = br_tag.get_text()
@@ -111,3 +114,11 @@ def extract_player_concurrency_data(soup: BeautifulSoup | None) -> dict[str, dic
             concurrent_players_tag: Tag = div_tag_with_app_stat_class.find("span", attrs={"class": "num"})
             concurrent_players = concurrent_players_tag.get_text()
             concurrent_players = int(concurrent_players)
+
+        if cell_number == 2:
+            result["active_concurrent_players"][header] = concurrent_players
+
+        else:
+            result["peak_concurrent_players"][header] = concurrent_players
+
+    return result
