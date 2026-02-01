@@ -1,6 +1,7 @@
 """
 Extract trending games raw data from Steam Charts.
 """
+from numpy.lib.recfunctions import _append_fields_dispatcher
 import requests
 from bs4 import BeautifulSoup, Tag, ResultSet
 
@@ -25,6 +26,7 @@ def extract_trending_games_table(soup: BeautifulSoup | None) -> dict[str, list]:
     Extract top 5 trending games table from the Steam Charts website.
     """
     result = {
+        "app_id": [],
         "name": [],
         "24-hour_change": [],
         "current_players": []
@@ -42,9 +44,12 @@ def extract_trending_games_table(soup: BeautifulSoup | None) -> dict[str, list]:
 
     for table_row_tag in list_of_all_table_row_tags:
         list_of_all_table_data_tags = table_row_tag.find_all("td")
-
-        name = list_of_all_table_data_tags[0]
-        name = name.get_text()
+    
+        anchor_tag: Tag = list_of_all_table_data_tags[0].find("a")
+        app_id = anchor_tag["href"]
+        app_id = str(app_id)
+        
+        name = anchor_tag.get_text()
         name = str(name)
 
         twenty_four_hour_change = list_of_all_table_data_tags[1]
@@ -55,6 +60,7 @@ def extract_trending_games_table(soup: BeautifulSoup | None) -> dict[str, list]:
         current_players = current_players.get_text()
         current_players = str(current_players)
 
+        result["app_id"].append(app_id)
         result["name"].append(name)
         result["24-hour_change"].append(twenty_four_hour_change)
         result["current_players"].append(current_players)
