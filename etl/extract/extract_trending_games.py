@@ -96,8 +96,8 @@ def extract_player_concurrency_data(soup: BeautifulSoup | None) -> dict[str, dic
 
         if cell_number == 1:
             br_tag: Tag = div_tag_with_app_stat_class.find("br")
-            abbreviation_tag: Tag = div_tag_with_app_stat_class.find("abbr")
-            header = br_tag.get_text() + abbreviation_tag.get_text()
+            abbr_tag : Tag = div_tag_with_app_stat_class.find("abbr")
+            header = br_tag.get_text() +  abbr_tag.get_text()
             header = str(header)
 
             current_concurrent_players = div_tag_with_app_stat_class.find("span", attrs={"class": "num"}).get_text()
