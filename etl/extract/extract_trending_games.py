@@ -72,6 +72,7 @@ def extract_player_concurrency_data(soup: BeautifulSoup | None) -> dict[str, dic
     Extract the player concurrency data of the number 1 trending game from Steam Charts website.
     """
     result = {
+        "app_title": "",
         "current_concurrent_players": {},
         "peak_concurrent_players": {"24_hour_peak": ""},
         "all_time_peak": {}
@@ -79,3 +80,19 @@ def extract_player_concurrency_data(soup: BeautifulSoup | None) -> dict[str, dic
 
     if soup is None:
         return result
+
+    body_tag: Tag = soup.find('body')
+    div_tag_with_content_wrapper_id: Tag = body_tag.find("div", attrs={"id": "content-wrapper"})
+    
+    app_title_tag: Tag = div_tag_with_content_wrapper_id.find("h1", attrs={"id": "app-title"})
+    app_title = app_title_tag.get_text()
+    app_title = str(app_title)
+
+    div_tag_with_app_heading_id: Tag = div_tag_with_content_wrapper_id.find("div", attrs={"id": "app-heading"})
+
+    current_concurrent_players_tag: Tag = div_tag_with_app_heading_id.find("div", attrs={"class": "app-stat"})
+    current_concurrent_players = current_concurrent_players_tag.find("span", attrs={"class" : "num"})
+    current_concurrent_players = int(current_concurrent_players)
+
+    print(app_title)
+    print(current_concurrent_players)
