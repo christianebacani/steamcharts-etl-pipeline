@@ -96,15 +96,16 @@ def extract_player_concurrency_data(soup: BeautifulSoup | None) -> dict[str, dic
         cell_number += 1
 
         if cell_number == 1:
-            br_tag: Tag = div_tag_with_app_stat_class.find("br")
+            header = div_tag_with_app_stat_class.get_text()
             abbr_tag : Tag = div_tag_with_app_stat_class.find("abbr")
-            header = br_tag.get_text() +  abbr_tag.get_text()
+            header = header + abbr_tag.get_text()
             header = str(header)
 
             current_concurrent_players = div_tag_with_app_stat_class.find("span", attrs={"class": "num"}).get_text()
             current_concurrent_players = int(current_concurrent_players)
 
             result["current_concurrent_players"][header] = current_concurrent_players
+            continue
 
         else:
             br_tag: Tag = div_tag_with_app_stat_class.find("br")
@@ -116,7 +117,7 @@ def extract_player_concurrency_data(soup: BeautifulSoup | None) -> dict[str, dic
             concurrent_players = int(concurrent_players)
 
         if cell_number == 2:
-            result["active_concurrent_players"][header] = concurrent_players
+            result["peak_concurrent_players"][header] = concurrent_players
 
         else:
             result["peak_concurrent_players"][header] = concurrent_players
