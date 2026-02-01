@@ -102,3 +102,12 @@ def extract_player_concurrency_data(soup: BeautifulSoup | None) -> dict[str, dic
 
             current_concurrent_players = div_tag_with_app_stat_class.find("span", attrs={"class": "num"}).get_text()
             current_concurrent_players = int(current_concurrent_players)
+
+        else:
+            br_tag: Tag = div_tag_with_app_stat_class.find("br")
+            header = br_tag.get_text()
+            header = str(header)
+
+            concurrent_players_tag: Tag = div_tag_with_app_stat_class.find("span", attrs={"class": "num"})
+            concurrent_players = concurrent_players_tag.get_text()
+            concurrent_players = int(concurrent_players)
