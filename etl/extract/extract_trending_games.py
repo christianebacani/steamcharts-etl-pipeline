@@ -8,12 +8,6 @@ from bs4 import BeautifulSoup
 def extract_and_parse_soup(url: str) -> BeautifulSoup | None:
     """
     Extract and parse BeautifulSoup from the Steam Charts website.
-
-    :param url: URL of the Steam Charts website
-    :type url: str
-
-    :return: Parsed BeautifulSoup object from the website or NoneType
-    :rtype: BeautifulSoup | None
     """
     headers = {
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36 Edg/144.0.0.0"
@@ -26,3 +20,8 @@ def extract_and_parse_soup(url: str) -> BeautifulSoup | None:
     soup = BeautifulSoup(response.text, 'html.parser')
 
     return soup
+
+def extract_trending_games_table(soup: BeautifulSoup | None) -> dict[str, list]:
+    """
+    Extract top 5 trending games table from the Steam Charts website.
+    """
