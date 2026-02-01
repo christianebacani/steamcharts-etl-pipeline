@@ -66,3 +66,16 @@ def extract_trending_games_table(soup: BeautifulSoup | None) -> dict[str, list]:
         result["current_players"].append(current_players)
 
     return result
+
+def extract_player_concurrency_data(soup: BeautifulSoup | None) -> dict[str, dict]:
+    """
+    Extract the player concurrency data of the number 1 trending game from Steam Charts website.
+    """
+    result = {
+        "current_concurrent_players": {},
+        "peak_concurrent_players": {"24_hour_peak": ""},
+        "all_time_peak": {}
+    }
+
+    if soup is None:
+        return result
