@@ -89,4 +89,16 @@ def extract_player_concurrency_data(soup: BeautifulSoup | None) -> dict[str, dic
     app_title = str(app_title)
 
     div_tag_with_app_heading_id: Tag = div_tag_with_content_wrapper_id.find("div", attrs={"id": "app-heading"})
-    list_of_all_div_tag_with_app_stat_classes = div_tag_with_app_heading_id.find_all("div", attrs={"class": "app-stat"})
+    list_of_all_div_tag_with_app_stat_classes: ResultSet[Tag] = div_tag_with_app_heading_id.find_all("div", attrs={"class": "app-stat"})
+
+    for cell_number, div_tag_with_app_stat_class in enumerate(list_of_all_div_tag_with_app_stat_classes):
+        cell_number += 1
+
+        if cell_number == 1:
+            br_tag: Tag = div_tag_with_app_stat_class.find("br")
+            abbreviation_tag: Tag = div_tag_with_app_stat_class.find("abbr")
+            header = br_tag.get_text() + abbreviation_tag.get_text()
+            header = str(header)
+
+            current_concurrent_players = div_tag_with_app_stat_class.find("span", attrs={"class": "num"}).get_text()
+            current_concurrent_players = int(current_concurrent_players)
