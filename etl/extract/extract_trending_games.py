@@ -28,7 +28,7 @@ def extract_trending_games_table(soup: BeautifulSoup | None) -> dict[str, list]:
     result = {
         "app_id": [],
         "name": [],
-        "24-hour_change": [],
+        "24_hour_change": [],
         "current_players": []
     }
 
@@ -62,7 +62,7 @@ def extract_trending_games_table(soup: BeautifulSoup | None) -> dict[str, list]:
 
         result["app_id"].append(app_id)
         result["name"].append(name)
-        result["24-hour_change"].append(twenty_four_hour_change)
+        result["24_hour_change"].append(twenty_four_hour_change)
         result["current_players"].append(current_players)
 
     return result
