@@ -1,5 +1,5 @@
 """
-ETL Pipeline logging module
+ETL Pipeline logger
 """
 import pandas as pd
 from datetime import datetime
