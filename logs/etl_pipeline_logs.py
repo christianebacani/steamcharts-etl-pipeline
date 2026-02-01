@@ -22,4 +22,4 @@ def etl_pipeline_logs(job: str, job_description: str) -> None:
         current_logs,
         initial_logs
     ], ignore_index=False)
-    updated_logs.to_csv('logs/logs.csv')
+    updated_logs.to_csv('logs/logs.csv', index=False)
