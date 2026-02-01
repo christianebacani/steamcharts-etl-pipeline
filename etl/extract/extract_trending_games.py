@@ -16,7 +16,7 @@ def extract_and_parse_soup(url: str) -> BeautifulSoup | None:
     if response.status_code != 200:
         return None
 
-    soup = BeautifulSoup(response.text, 'html.parser')
+    soup = BeautifulSoup(response.text, "html.parser')
 
     return soup
 
