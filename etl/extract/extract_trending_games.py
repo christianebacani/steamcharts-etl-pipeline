@@ -72,7 +72,7 @@ def extract_player_concurrency_data(soup: BeautifulSoup | None) -> dict[str, dic
     """
     result = {
         "app_title": "",
-        "current_concurrent_players": {},
+        "current_concurrent_players": "",
         "peak_concurrent_players": {"24_hour_peak": ""},
         "all_time_peak": {}
     }
@@ -89,37 +89,9 @@ def extract_player_concurrency_data(soup: BeautifulSoup | None) -> dict[str, dic
     result["app_title"] = app_title
 
     div_tag_with_app_heading_id: Tag = div_tag_with_content_wrapper_id.find("div", attrs={"id": "app-heading"})
-    list_of_all_div_tag_with_app_stat_classes: ResultSet[Tag] = div_tag_with_app_heading_id.find_all("div", attrs={"class": "app-stat"})
 
-    for cell_number, div_tag_with_app_stat_class in enumerate(list_of_all_div_tag_with_app_stat_classes):
-        cell_number += 1
+    current_concurrent_players_tag: Tag = div_tag_with_app_heading_id.find("div", attrs={"class": "app-stat"})
 
-        if cell_number == 1:
-            header = div_tag_with_app_stat_class.get_text()
-            abbr_tag: Tag = div_tag_with_app_stat_class.find("abbr")
-            header = header + abbr_tag.get_text()
-            header = str(header)
-
-            current_concurrent_players_tag: Tag = div_tag_with_app_stat_class.find("span", attrs={"class": "num"})
-            current_concurrent_players = current_concurrent_players_tag.get_text()
-            current_concurrent_players = int(current_concurrent_players)
-
-            result["current_concurrent_players"][header] = current_concurrent_players
-            continue
-
-        else:
-            br_tag: Tag = div_tag_with_app_stat_class.find("br")
-            header = br_tag.get_text()
-            header = str(header)
-
-            concurrent_players_tag: Tag = div_tag_with_app_stat_class.find("span", attrs={"class": "num"})
-            concurrent_players = concurrent_players_tag.get_text()
-            concurrent_players = int(concurrent_players)
-
-        if cell_number == 2:
-            result["peak_concurrent_players"][header] = concurrent_players
-
-        else:
-            result["peak_concurrent_players"][header] = concurrent_players
-
-    return result
+    current_concurrent_players = current_concurrent_players_tag.get_text()
+    current_concurrent_players = current_concurrent_players.replace("playing", "")
+    current_concurrent_players = int(current_concurrent_players.strip())
