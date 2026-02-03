@@ -73,8 +73,8 @@ def extract_player_concurrency_data(soup: BeautifulSoup | None) -> dict[str, dic
     result = {
         "app_title": "",
         "current_concurrent_players": "",
-        "peak_concurrent_players": {"24_hour_peak": ""},
-        "all_time_peak": {}
+        "peak_concurrent_players": "",
+        "all_time_peak_concurrent_players": ""
     }
 
     if soup is None:
@@ -92,7 +92,6 @@ def extract_player_concurrency_data(soup: BeautifulSoup | None) -> dict[str, dic
 
     # Current concurrent players
     current_concurrent_players_tag: Tag = div_tag_with_app_heading_id.find("div", attrs={"class": "app-stat"})
-
     current_concurrent_players = current_concurrent_players_tag.get_text()
     current_concurrent_players = current_concurrent_players.replace("playing", "")
     current_concurrent_players = int(current_concurrent_players.strip())
@@ -100,10 +99,16 @@ def extract_player_concurrency_data(soup: BeautifulSoup | None) -> dict[str, dic
 
     # Peak concurrent players
     peak_concurrent_players_tag: Tag = div_tag_with_content_wrapper_id.find_all("div", attrs={"class": "app-stat"})[1]
-
     peak_concurrent_players = peak_concurrent_players_tag.get_text()
     peak_concurrent_players = peak_concurrent_players.replace("24-hour peak", "")
     peak_concurrent_players = int(peak_concurrent_players.strip())
-    result["peak_concurrent_players"]["24_hour_peak"] = peak_concurrent_players
+    result["peak_concurrent_players"] = peak_concurrent_players
+
+    # All-time peak concurrent players
+    all_time_peak_concurrent_players_tag = div_tag_with_content_wrapper_id.find_all("div", attrs={"class": "app-stat"})[2]
+    all_time_peak_concurrent_players = all_time_peak_concurrent_players_tag.get_text()
+    all_time_peak_concurrent_players = all_time_peak_concurrent_players.replace("all-time peak", "")
+    all_time_peak_concurrent_players = int(all_time_peak_concurrent_players.strip())
+    result["all_time_peak_concurrent_players"] = all_time_peak_concurrent_players
 
     return result
