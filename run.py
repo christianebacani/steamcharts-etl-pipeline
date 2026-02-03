@@ -18,6 +18,7 @@ number_one_trending_game_path = str(number_one_trending_game_path).replace("/app
 number_one_trending_game_url = base_url + number_one_trending_game_path
 number_one_trending_game_soup = extract_and_parse_soup(number_one_trending_game_url)
 number_one_concurrency_data = extract_player_concurrency_data(number_one_trending_game_soup)
+etl_pipeline_logs("EXTRACT", "Extract number two trending game from Steam Charts website.")
 
 # Number two trending game
 number_two_trending_game_path = trending_games["app_id"][1]
@@ -25,5 +26,4 @@ number_two_trending_game_path = str(number_two_trending_game_path).replace("/app
 number_one_trending_game_url = base_url + number_two_trending_game_path
 number_two_trending_game_soup = extract_and_parse_soup(number_one_trending_game_url)
 number_two_concurrency_data  = extract_player_concurrency_data(number_two_trending_game_soup)
-
-etl_pipeline_logs("EXTRACT", "Extract number 1 one trending game from Steam Charts website.")
+etl_pipeline_logs("EXTRACT", "Extract number two trending game from Steam Charts website.")
