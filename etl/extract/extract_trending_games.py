@@ -68,7 +68,7 @@ def extract_trending_games_table(soup: BeautifulSoup | None) -> dict[str, list]:
 
 def extract_player_concurrency_data(soup: BeautifulSoup | None) -> dict[str, dict]:
     """
-    Extract the player concurrency data of the number 1 trending game from Steam Charts website.
+    Extract the player concurrency data of all current trending games.
     """
     result = {
         "app_title": "",
@@ -104,3 +104,18 @@ def extract_player_concurrency_data(soup: BeautifulSoup | None) -> dict[str, dic
     result["all_time_peak_concurrent_players"] = all_time_peak_concurrent_players
 
     return result
+
+def extract_historical_player_data(soup: BeautifulSoup | None) -> dict[str, dict]:
+    """
+    Extract the historical player data of all current trending games.
+
+    :param soup: Parsed BeautifulSoup object to navigate HTML elements.
+    :type soup: BeautifulSoup | None
+
+    :return: Historical player data of all current trending games dictionary
+    :rtype: dict[str, dict]
+    """
+    historical_player_data = {}
+
+    if soup is None:
+        return historical_player_data
