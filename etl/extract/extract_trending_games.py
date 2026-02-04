@@ -72,7 +72,6 @@ def extract_player_concurrency_data(soup: BeautifulSoup | None) -> dict[str, dic
     """
     result = {
         "app_title": "",
-        "current_concurrent_players": "",
         "peak_concurrent_players": "",
         "all_time_peak_concurrent_players": ""
     }
@@ -89,13 +88,6 @@ def extract_player_concurrency_data(soup: BeautifulSoup | None) -> dict[str, dic
     result["app_title"] = app_title
 
     div_tag_with_app_heading_id: Tag = div_tag_with_content_wrapper_id.find("div", attrs={"id": "app-heading"})
-
-    # Current concurrent players
-    current_concurrent_players_tag: Tag = div_tag_with_app_heading_id.find("div", attrs={"class": "app-stat"})
-    current_concurrent_players = current_concurrent_players_tag.get_text()
-    current_concurrent_players = current_concurrent_players.replace("playing", "")
-    current_concurrent_players = int(current_concurrent_players.strip())
-    result["current_concurrent_players"] = current_concurrent_players
 
     # Peak concurrent players
     peak_concurrent_players_tag: Tag = div_tag_with_content_wrapper_id.find_all("div", attrs={"class": "app-stat"})[1]
