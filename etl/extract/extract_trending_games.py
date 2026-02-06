@@ -115,7 +115,7 @@ def extract_historical_player_data(soup: BeautifulSoup | None) -> dict[str, dict
     :return: Historical player data of all current trending games dictionary
     :rtype: dict[str, dict]
     """
-    historical_player_data = {
+    result = {
         "period": [],
         "avg_players": [],
         "player_gain": [],
@@ -123,7 +123,7 @@ def extract_historical_player_data(soup: BeautifulSoup | None) -> dict[str, dict
     }
 
     if soup is None:
-        return historical_player_data
+        return result
 
     
     body_tag: Tag = soup.find('body')
