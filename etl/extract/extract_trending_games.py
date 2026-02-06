@@ -131,9 +131,9 @@ def extract_historical_player_data(soup: BeautifulSoup | None) -> dict[str, dict
     for table_row_tag in list_of_all_table_row_tags:
         list_of_all_table_data_tags = table_row_tag.find_all("td")
 
-        datas = []
+        cell_values = []
 
         for table_data_tag in list_of_all_table_data_tags:
-            data = table_data_tag.get_text()
-            data = str(data)
-            datas.append(data)
+            cell_value  = table_data_tag.get_text()
+            cell_value = str(cell_value)
+            cell_values.append(cell_value)
