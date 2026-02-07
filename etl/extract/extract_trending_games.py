@@ -130,7 +130,8 @@ def extract_historical_player_data(soup: BeautifulSoup | None) -> dict[str, dict
     div_tag_with_content_wrapper_id: Tag = body_tag.find("div", attrs={"id": "content-wrapper"})
 
     div_tag_with_content_class = div_tag_with_content_wrapper_id.find("div", attrs={"class": "content"})
-    tbody_tag = div_tag_with_content_class.find("tbody")
+    table_tag = div_tag_with_content_class.find("table", attrs={"class": "common-table"})
+    tbody_tag = table_tag.find("tbody")
     list_of_all_table_row_tags = tbody_tag.find_all("tr")
 
     for table_row_tag in list_of_all_table_row_tags:
@@ -142,3 +143,11 @@ def extract_historical_player_data(soup: BeautifulSoup | None) -> dict[str, dict
             cell_value  = table_data_tag.get_text()
             cell_value = str(cell_value)
             cell_values.append(cell_value)
+
+        result["period"].append(cell_values[0])
+        result["avg_players"].append(cell_values[1])
+        result["player_gain"].append(cell_values[2])
+        result["pct_gain"].append(cell_values[3])
+        result["peak_players"].append(cell_values[4])
+
+    return result
