@@ -22,6 +22,7 @@ for number in range(5):
     app_id = trending_games["app_id"][number]
     app_name = trending_games["app_name"][number]
 
+    # Extract and parse the BeautifulSoup object
     path = app_id
     path = str(path).replace("/app", "app")
     url = base_url + path
