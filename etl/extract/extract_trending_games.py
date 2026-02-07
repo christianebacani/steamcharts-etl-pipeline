@@ -126,10 +126,10 @@ def extract_historical_player_data(soup: BeautifulSoup | None) -> dict[str, dict
     if soup is None:
         return result
 
-    body_tag: Tag = soup.find('body')
-    div_tag_with_content_wrapper_id: Tag = body_tag.find("div", attrs={"id": "content-wrapper"})
+    body_tag = soup.find('body')
+    div_tag_with_content_wrapper_id  = body_tag.find("div", attrs={"id": "content-wrapper"})
 
-    div_tag_with_content_class = div_tag_with_content_wrapper_id.find("div", attrs={"class": "content"})
+    div_tag_with_content_class = div_tag_with_content_wrapper_id.find_all("div", attrs={"class": "content"})[2]
     table_tag = div_tag_with_content_class.find("table", attrs={"class": "common-table"})
     tbody_tag = table_tag.find("tbody")
     list_of_all_table_row_tags = tbody_tag.find_all("tr")
