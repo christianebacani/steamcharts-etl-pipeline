@@ -4,6 +4,7 @@ ETL Pipeline executor by running and orchestrating different pipeline jobs.
 from etl.extract.extract_trending_games import extract_and_parse_soup
 from etl.extract.extract_trending_games import extract_trending_games_table
 from etl.extract.extract_trending_games import extract_player_concurrency_data
+from etl.extract.extract_trending_games import extract_historical_player_data
 from logs.etl_pipeline_logs import etl_pipeline_logs
 
 base_url = "https://steamcharts.com/"
@@ -13,6 +14,7 @@ trending_games = extract_trending_games_table(trending_games_soup)
 etl_pipeline_logs("EXTRACT", "Extract top 5 trending games from Steam Charts website.")
 
 trending_games_concurrency_data = []
+trending_games_historical_player_data = {}
 
 for number in range(5):
     path = trending_games["app_id"][number]
@@ -23,3 +25,8 @@ for number in range(5):
     player_concurrency_data = extract_player_concurrency_data(soup)
     trending_games_concurrency_data.append(player_concurrency_data)
     etl_pipeline_logs("EXTRACT", f"Extract the player concurrency data of the number {number + 1} trending game from Steam Charts.")
+
+    historical_player_data = extract_historical_player_data(soup)
+    app_name = trending_games["app_name"][number]
+    trending_games_historical_player_data["app_name"] = historical_player_data
+    etl_pipeline_logs("EXTRACT", f"Extract the historical player data of the number {number + 1} trending game from Steam Charts.")
