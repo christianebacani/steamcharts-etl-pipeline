@@ -117,3 +117,9 @@ EXTRACT,Extract the player concurrency data of the top 2 game from Steam Charts.
 EXTRACT,Extract the player concurrency data of the top 3 game from Steam Charts.,2026-02-06 18:40:25
 EXTRACT,Extract the player concurrency data of the top 4 game from Steam Charts.,2026-02-06 18:40:26
 EXTRACT,Extract the player concurrency data of the top 5 game from Steam Charts.,2026-02-06 18:40:27
+EXTRACT,Extract top 5 trending games from Steam Charts website.,2026-02-07 13:28:28
+EXTRACT,Extract the player concurrency data of the number 1 trending game from Steam Charts.,2026-02-07 13:28:29
+EXTRACT,Extract top 5 trending games from Steam Charts website.,2026-02-07 13:42:58
+EXTRACT,Extract the player concurrency data of the number 1 trending game from Steam Charts.,2026-02-07 13:42:59
+EXTRACT,Extract top 5 trending games from Steam Charts website.,2026-02-07 13:48:18
+EXTRACT,Extract the player concurrency data of the number 1 trending game from Steam Charts.,2026-02-07 13:48:19
