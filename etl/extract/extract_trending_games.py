@@ -50,17 +50,19 @@ def extract_trending_games_table(soup: BeautifulSoup | None) -> dict[str, list]:
     if soup is None:
         return result
 
-    body_tag: Tag = soup.find("body")
-    div_tag_with_content_wrapper_id: Tag = body_tag.find("div", attrs={"id": "content-wrapper"})
-    div_tag_with_content_class: Tag = div_tag_with_content_wrapper_id.find("div", attrs={"class": "content"})
-    trending_games_table: Tag = div_tag_with_content_class.find("table", attrs={"id": "trending-recent"})
-    tbody_tag: Tag = trending_games_table.find("tbody")
-    list_of_all_table_row_tags: ResultSet[Tag] = tbody_tag.find_all("tr")
+    body_tag = soup.find("body")
+    div_tag_with_content_wrapper_id = body_tag.find("div", attrs={"id": "content-wrapper"})
 
+    div_tag_with_content_class = div_tag_with_content_wrapper_id.find("div", attrs={"class": "content"})
+    trending_games_table = div_tag_with_content_class.find("table", attrs={"id": "trending-recent"})
+    tbody_tag = trending_games_table.find("tbody")
+    list_of_all_table_row_tags  = tbody_tag.find_all("tr")
+
+    # Iterate over the trending games table to get the necessary data using for-loop
     for table_row_tag in list_of_all_table_row_tags:
         list_of_all_table_data_tags = table_row_tag.find_all("td")
     
-        anchor_tag: Tag = list_of_all_table_data_tags[0].find("a")
+        anchor_tag = list_of_all_table_data_tags[0].find("a")
         app_id = anchor_tag["href"]
         app_id = str(app_id)
         
@@ -102,24 +104,24 @@ def extract_player_concurrency_data(soup: BeautifulSoup | None) -> dict[str, dic
     if soup is None:
         return result
 
-    body_tag: Tag = soup.find('body')
-    div_tag_with_content_wrapper_id: Tag = body_tag.find("div", attrs={"id": "content-wrapper"})
-    
-    app_name_tag: Tag = div_tag_with_content_wrapper_id.find("h1", attrs={"id": "app-title"})
+    body_tag = soup.find('body')
+    div_tag_with_content_wrapper_id = body_tag.find("div", attrs={"id": "content-wrapper"})
+
+    app_name_tag  = div_tag_with_content_wrapper_id.find("h1", attrs={"id": "app-title"})
     app_name = app_name_tag.get_text()
     app_name = str(app_name)
     result["app_name"] = app_name
 
-    div_tag_with_app_heading_id: Tag = div_tag_with_content_wrapper_id.find("div", attrs={"id": "app-heading"})
+    div_tag_with_app_heading_id = div_tag_with_content_wrapper_id.find("div", attrs={"id": "app-heading"})
 
-    # Peak concurrent players within the time period of 24-Hours
-    peak_players_24h_tag: Tag = div_tag_with_app_heading_id.find_all("div", attrs={"class": "app-stat"})[1]
+    # Extract the peak concurrent players within the time period of 24-Hours
+    peak_players_24h_tag = div_tag_with_app_heading_id.find_all("div", attrs={"class": "app-stat"})[1]
     peak_players_24h = peak_players_24h_tag.get_text()
     peak_players_24h = peak_players_24h.replace("24-hour peak", "")
     peak_players_24h = int(peak_players_24h.strip())
     result["peak_players_24h"] = peak_players_24h
 
-    # All-time peak concurrent players
+    # Extract the all-time peak concurrent players
     peak_players_all_time_tag = div_tag_with_app_heading_id.find_all("div", attrs={"class": "app-stat"})[2]
     peak_players_all_time = peak_players_all_time_tag.get_text()
     peak_players_all_time = peak_players_all_time.replace("all-time peak", "")
@@ -128,9 +130,9 @@ def extract_player_concurrency_data(soup: BeautifulSoup | None) -> dict[str, dic
 
     return result
 
-def extract_historical_player_data(soup: BeautifulSoup | None) -> dict[str, dict]:
+def extract_historical_player_stats(soup: BeautifulSoup | None) -> dict[str, dict]:
     """
-    Extract the historical player data of a specific current trending game.
+    Extract the historical player statistics of a specific current trending game.
 
     :param soup: BeautifulSoup object representing the web-page from the url, NoneType
         if non-existent
@@ -158,6 +160,7 @@ def extract_historical_player_data(soup: BeautifulSoup | None) -> dict[str, dict
     tbody_tag = table_tag.find("tbody")
     list_of_all_table_row_tags = tbody_tag.find_all("tr")
 
+    # Iterate over the historical player statistics table to get the necessary data using for-loop
     for table_row_tag in list_of_all_table_row_tags:
         list_of_all_table_data_tags = table_row_tag.find_all("td")
 
