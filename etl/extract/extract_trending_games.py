@@ -1,6 +1,6 @@
 """
-This module provides functions to extract necessary data based
-on a specific web-page of the Steam Charts for further processing.
+Provides functions to extract necessary data based on a specific
+web-page of the Steam Charts for further processing.
 """
 import requests
 from bs4 import BeautifulSoup, Tag, ResultSet
