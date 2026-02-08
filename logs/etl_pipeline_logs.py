@@ -1,12 +1,9 @@
 """
 ETL Pipeline logger
 
-This utility generate logs while processing data from the
-Steam Charts website. The provide auditing and logs to support
-troubleshooting of the ETL Pipeline.
-
-Main function:
-- `etl_pipeline_logs()` - Generate logs for ETL pipeline jobs
+This module generate logs while processing data from the
+Steam Charts website. This will provide audit nd/or logs
+to support troubleshooting of the ETL Pipeline.
 """
 import pandas as pd
 from datetime import datetime
