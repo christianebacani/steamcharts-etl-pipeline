@@ -8,6 +8,14 @@ from bs4 import BeautifulSoup, Tag, ResultSet
 def extract_and_parse_soup(url: str) -> BeautifulSoup | None:
     """
     Extract and parse BeautifulSoup from the Steam Charts website.
+
+    :param url: Website URL to be extracted and parsed as a BeautifulSoup
+        object
+    :type url: str
+
+    :return: BeautifulSoup object representing the web-page from the url, NoneType
+        if non-existent
+    :rtype: BeautifulSoup | None
     """
     headers = {
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36 Edg/144.0.0.0"
@@ -24,6 +32,13 @@ def extract_and_parse_soup(url: str) -> BeautifulSoup | None:
 def extract_trending_games_table(soup: BeautifulSoup | None) -> dict[str, list]:
     """
     Extract top 5 trending games table from the Steam Charts website.
+
+    :param soup: BeautifulSoup object representing the web-page from the url, NoneType
+        if non-existent
+    :type soup: BeautifulSoup | None
+
+    :return: Top 5 current trending games dictionary
+    :rtype: dict[str, list]
     """
     result = {
         "app_id": [],
@@ -69,7 +84,14 @@ def extract_trending_games_table(soup: BeautifulSoup | None) -> dict[str, list]:
 
 def extract_player_concurrency_data(soup: BeautifulSoup | None) -> dict[str, dict]:
     """
-    Extract the player concurrency data of all current trending games.
+    Extract the player concurrency data of a specific current trending game.
+
+    :param soup: BeautifulSoup object representing the web-page from the url, NoneType
+        if non-existent
+    :type soup: BeautifulSoup | None
+
+    :return: Player concurrency data dictionary
+    :rtype: dict[str, dict]
     """
     result = {
         "app_name": "",
@@ -108,12 +130,13 @@ def extract_player_concurrency_data(soup: BeautifulSoup | None) -> dict[str, dic
 
 def extract_historical_player_data(soup: BeautifulSoup | None) -> dict[str, dict]:
     """
-    Extract the historical player data of all current trending games.
+    Extract the historical player data of a specific current trending game.
 
-    :param soup: Parsed BeautifulSoup object to navigate HTML elements.
+    :param soup: BeautifulSoup object representing the web-page from the url, NoneType
+        if non-existent
     :type soup: BeautifulSoup | None
 
-    :return: Historical player data of all current trending games dictionary
+    :return: Historical player data dictionary
     :rtype: dict[str, dict]
     """
     result = {
