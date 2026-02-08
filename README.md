@@ -1,6 +1,6 @@
 # Steam Charts Tracker
 
-`Data Pipeline for processing and tracking trending, top games, top record of games from Steam using the Website: https://steamcharts.com/`
+Steam Charts Tracker is a a data processing system that extracts, transforms, and loads data from Steam Charts Website to track the current trending games, top games, top records, player concurrency data, and lastly historical player data using Power BI or Python for Data Visualization. 
 
 I don't know what to write, but there's a todo list:
 - Create docstrings for every module and functions
