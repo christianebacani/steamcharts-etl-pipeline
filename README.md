@@ -7,6 +7,7 @@ Steam Charts Tracker is a a data processing system that extracts, transforms, an
 - [Usage](#usage)
 - [Contributing](#contributing)
 - [License](#license)
+- [Is this blue?]
 
 I don't know what to write, but there's a todo list:
 - Create docstrings for every module and functions
