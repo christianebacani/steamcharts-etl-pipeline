@@ -1,10 +1,9 @@
 """
 ETL Pipeline executor by running and orchestrating different pipeline jobs.
 
-This module orchestrates different helpers in different modules of packages
-`etl/extract`, `etl/transform/`, and `etl/load`.
+This module orchestrates different functions in their corresponding modules
+from the packages `etl/extract`, `etl/transform/`, and `etl/load`.
 """
-
 from etl.extract.extract_trending_games import extract_and_parse_soup
 from etl.extract.extract_trending_games import extract_trending_games_table
 from etl.extract.extract_trending_games import extract_player_concurrency_data
