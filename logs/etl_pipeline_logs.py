@@ -1,9 +1,6 @@
 """
-ETL Pipeline logger
-
-This module generate logs while processing data from the
-Steam Charts website. This will provide audit nd/or logs
-to support troubleshooting of the ETL Pipeline.
+This module generate logs while processing data from the Steam Charts
+website. This will provide audit nd/or logs to support troubleshooting of the ETL Pipeline.
 """
 import pandas as pd
 from datetime import datetime
